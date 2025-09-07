@@ -4,10 +4,10 @@ void main()
 	int n,i; //n=range
 	printf("enter a n term of :");
 	scanf("%d",&n);
-	for(i=1; i<=n; i++)
+	for(i=2; i<=n; i++)
 	{
 	   int j,flag=0;
-		for(j=2; j<=i; j++)
+		for(j=2; j<i; j++)
 		{
 		if(i%j==0)
 		{
@@ -20,3 +20,4 @@ void main()
 		
 	}
 }
+
