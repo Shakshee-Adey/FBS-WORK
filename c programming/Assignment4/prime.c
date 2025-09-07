@@ -1,0 +1,22 @@
+#include<stdio.h>
+void main()
+{
+	int n,i; //n=range
+	printf("enter a n term of :");
+	scanf("%d",&n);
+	for(i=1; i<=n; i++)
+	{
+	   int j,flag=0;
+		for(j=2; j<=i; j++)
+		{
+		if(i%j==0)
+		{
+			flag=1;
+			break;
+		}
+		if(flag==0)
+			printf("%d",i);
+	}
+		
+	}
+}
