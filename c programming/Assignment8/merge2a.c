@@ -26,7 +26,7 @@ void main()
 	{
 		crr[i]=arr[i];
 	}
-	int itr1, itr2=i;
+	int itr1, itr2=i;  // itr1= 0 itr2 =i ka matlab h ki s1=i ki value jaha se khatm hui h matlan 5 index se brr ki vale save hogi
 	for(itr1 =0; itr1<s2; itr1++)
 	{
 		crr[itr2]=brr[itr1];
