@@ -1,0 +1,76 @@
+Task / Problems:
+1) Create the table Member, Books and Issue without any constraints as
+mentioned in the schema description above.
+mysql> create table member(member_id int,member_name varchar(30),member_address varchar(50),Acc_open_date date,membership_type varchar(20),fees_paid int,max_books_allowed int,penality_amount decimal(7,2));
+mysql> create table Books(Book_no int,Book_name varchar(30),Author_name varchar(30),Cost decimal(7,2),Categorychar(10));
+mysql> create table Issue(Lib_Issue_Id int,Book_no int,member_id int,Issue_date date,Return_date date);
+Query OK, 0 rows affected (0.03 sec)
+
+2) View the structure of the tables.
+mysql> desc member;
++-------------------+--------------+------+-----+---------+-------+
+| Field             | Type         | Null | Key | Default | Extra |
++-------------------+--------------+------+-----+---------+-------+
+| member_id         | int          | YES  |     | NULL    |       |
+| member_name       | varchar(30)  | YES  |     | NULL    |       |
+| member_address    | varchar(50)  | YES  |     | NULL    |       |
+| Acc_open_date     | date         | YES  |     | NULL    |       |
+| membership_type   | varchar(20)  | YES  |     | NULL    |       |
+| fees_paid         | int          | YES  |     | NULL    |       |
+| max_books_allowed | int          | YES  |     | NULL    |       |
+| penality_amount   | decimal(7,2) | YES  |     | NULL    |       |
++-------------------+--------------+------+-----+---------+-------+
+
+mysql> desc Books;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| Book_no     | int          | YES  |     | NULL    |       |
+| Book_name   | varchar(30)  | YES  |     | NULL    |       |
+| Author_name | varchar(30)  | YES  |     | NULL    |       |
+| Cost        | decimal(7,2) | YES  |     | NULL    |       |
+| Category    | char(10)     | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+
+mysql> desc Issue;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| Lib_Issue_Id | int  | YES  |     | NULL    |       |
+| Book_no      | int  | YES  |     | NULL    |       |
+| member_id    | int  | YES  |     | NULL    |       |
+| Issue_date   | date | YES  |     | NULL    |       |
+| Return_date  | date | YES  |     | NULL    |       |
++--------------+------+------+-----+---------+-------+
+
+3) Drop the Member table
+mysql> drop table member;
+Query OK, 0 rows affected (0.07 sec)
+
+4) Create the table Member again as per the schema description with the
+following constraints.
+a. Member_Id – Primary Key
+b. Membership_type - ‘Lifetime’,’ Annual’, ‘Half Yearly’,’ Quarterly’
+mysql> alter table member
+    -> add primary key(member_id);
+mysql> alter table member
+    -> modify column membership_type varchar(20) check(membership_type in('Lifetime','Annual','Half Yearly',’ Quarterly’));
+
+5) Modify the table Member increase the width of the member name to 30
+characters.
+
+mysql> ALTER TABLE Member
+    -> alter column member_name type varchar(30);
+
+6) Add a column named as Reference of Char(30) to Issue table.
+mysql> alter table Issue
+    -> add column Reference char(30);
+
+7) Delete/Drop the column Reference from Issue.
+mysql> alter table Issue
+    -> drop column Reference ;
+
+8) Rename the table Issue to Lib_Issue.
+mysql> alter table Issue rename to Lib_Issue;
+
+9) Insert following data in table Member
