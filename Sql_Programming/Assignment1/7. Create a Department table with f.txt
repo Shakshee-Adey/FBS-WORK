@@ -1,0 +1,60 @@
+7. Create a Department table with following structure
+
+mysql> alter table department
+    -> add primary key(department_id,manager_id); 
+
+8. Write an SQL statement to create a table employees including columns
+employee_id, first_name, last_name, email, phone_number hire_date, job_id,
+salary, commission, manager_id and department_id and make sure that, the
+employee_id column does not contain any duplicate value at the time of
+insertion and the foreign key columns combined by department_id and
+manager_id columns contain only those unique combination values, which
+combinations are exists in the departments table.
+
+
+ alter table department
+    -> add primary key(department_id,manager_id);
+mysql> desc department;
+ insert into department
+    -> values(1,"HR",101,1000);
+mysql> insert into department
+    -> values(1,"IT",102,2000);
+mysql> table department;
++---------------+-----------------+------------+-------------+
+| department_id | department_name | manager_id | location_id |
++---------------+-----------------+------------+-------------+
+|             1 | HR              |        101 |        1000 |
+|             1 | IT              |        102 |        2000 |
++---------------+-----------------+------------+-------------+
+
+mysql> create table employee(eid int primary key,
+    -> firstname varchar(50),
+    -> lastname varchar(50),
+    -> email varchar(70),
+    -> contact int,
+    -> hire_date date,
+    -> job_id int,
+    -> salary decimal(10,3),
+    -> comission float(5,3),
+    -> manager_id  decimal(6,0),
+    -> department_id decimal(4,0),
+    -> foreign key(department_id,manager_id)
+    -> references department(department_id,manager_id));
+mysql> desc employee;
++---------------+---------------+------+-----+---------+-------+
+| Field         | Type          | Null | Key | Default | Extra |
++---------------+---------------+------+-----+---------+-------+
+| eid           | int           | NO   | PRI | NULL    |       |
+| firstname     | varchar(50)   | YES  |     | NULL    |       |
+| lastname      | varchar(50)   | YES  |     | NULL    |       |
+| email         | varchar(70)   | YES  |     | NULL    |       |
+| contact       | int           | YES  |     | NULL    |       |
+| hire_date     | date          | YES  |     | NULL    |       |
+| job_id        | int           | YES  |     | NULL    |       |
+| salary        | decimal(10,3) | YES  |     | NULL    |       |
+| comission     | float(5,3)    | YES  |     | NULL    |       |
+| manager_id    | decimal(6,0)  | YES  |     | NULL    |       |
+| department_id | decimal(4,0)  | YES  | MUL | NULL    |       |
++---------------+---------------+------+-----+---------+-------+
+mysql> insert into employee values(201,"shakshee","adey","shakshe@",12345,"2025-12-10",200,100000,0,101,1);
+Query OK, 1 row affected (0.03 sec)
