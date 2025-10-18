@@ -74,3 +74,150 @@ mysql> alter table Issue
 mysql> alter table Issue rename to Lib_Issue;
 
 9) Insert following data in table Member
+mysql> insert into member values(1,"Richa","pune","2010-10-12","Lifetime",25000,5,50);
+mysql> insert into member values(2,"Grima","pune","2025-10-12","Annual",1000,3, 0);
+mysql> table member;
+
+10) Insert at least 5 records with suitable data.
+mysql> insert into member values(4,"karisma","balghat","2025-10-19","Annual",3000,4, 50);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into member values(3,"rima","balghat","2025-10-19","Annual",3000,4, 60);
+
+
+11) Modify the column Member_name. Decrease the width of the member
+name to 20 characters. (If it does not allow state the reason for that)
+ALTER TABLE lib_Member 
+MODIFY Member_Name VARCHAR(20);
+
+12)Try to insert a record with Max_Books_Allowed = 110, Observe the error that comes.
+insert into Lib_member
+(Member_id,member_name,Member_address,Acc_open_Date,
+Memebership_type,Fes_paid,Max_Books_Allowed,Penalty_Amount)values
+(8,"Richa Sharma","Pune","10-12-05","lifeTime",25000,110,50);
+
+
+13)Generate another table named Member101 using a Create command along with a simple SQL query on member table.
+
+14)Add the constraints on columns max_books_allowed and penalty_amt as follows
+    a. max_books_allowed < 100
+    b. penalty_amt maximum 1000         Also give names to the constraints.
+    alter table Lib_member 
+    add constraint check(Max_Books_Allowed<100 and penalty_Amount>=1000);
+    
+    delete table from lib_member;
+     
+
+15)Drop the table books.
+    drop table Books;
+        
+16)Create table Books again as per the schema description with the following constraints.
+     a. Book_No – Primary Key
+     b. Book_Name – Not Null
+     c. Category – System, Fiction, Database, RDBMS, Others.
+CREATE table Books(
+Book_No int primary key,
+Book_Name varchar(50) not null,
+Auther_Name varchar(40),
+Cost Decimal(7,2),
+Category char(10) check(category in ("System","Fiction","Database","RDBMS","Others"))
+);
+
+17)Insert data in Book table as follows
+insert into Books(Book_No,Book_Name,Auther_Name,Cost,Category)values
+(101,"Let us c","Denis",450,"System"),
+(102,"Oracle-Complete Ref","Loni",550,"Database"),
+(103,"Mastering SQL","Loni",250,"Database"),
+(104,"PL-SQL-Ref","Scott Urman",750,"Database");
+ 
+
+18)Insert More data in Book table as follows
+insert into Books(Book_No,Book_Name,Auther_Name,Cost,Category)values
+(105,"Let us c","Denis",450,"System"),
+(106,"Oracle-Complete Ref","Loni",550,"Database"),
+(107,"Mastering SQL","Loni",250,"Database"),
+(109,"PL-SQL-Ref","Scott Urman",750,"Database"),
+(110,"Let us c","Denis",450,"System"),
+(111,"Oracle-Complete Ref","Loni",550,"Database"),
+(112,"Mastering SQL","Loni",250,"Database"),
+(113,"PL-SQL-Ref","Scott Urman",750,"Database");
+
+19)View the data in the tables using simple SQL query.
+select * from Books;
+table Books;
+
+20)insert into Books(Book_No,Book_Name,Auther_Name,Cost,Category)values
+(114,"National Geographic","Adis Scott",1000,"Science");
+
+
+21)Rename the table Lib_Issue to Issue.
+Alter table Lib_issue
+rename issue;
+
+
+22)Drop table Issue.
+drop table iSSUE;
+
+
+23)As per the given structure Create table Issue again with following constraints.
+  Lib_Issue_Id-Primary key
+  Book_No- foreign key
+  Member_id - foreign key
+  Issue_date
+  Return_date
+CREATE TABLE Issue(
+Lib_issue_id int primary key,
+Book_No int,
+Member_id int,
+Issue_Date Date,
+Return_date date,
+foreign key (Book_No) References Books(Book_No),
+foreign key (member_id) References Lib_member(member_id)
+);
+
+
+24)insert into Issue (Lib_issue_id, Book_No, Member_id, Issue_Date, Return_date)
+values
+(7001, 101, 1, '2006-12-10', NULL),
+(7002, 102, 2, '2006-12-25', NULL),
+(7003, 104, 1, '2006-01-15', NULL),
+(7004, 101, 1, '2006-07-04', NULL),
+(7005, 104, 2, '2006-11-15', NULL),
+(7006, 101, 3, '2006-02-18', NULL);
+
+
+25)Remove the constraints on Issue table
+SELECT constraint_name
+FROM information_schema.table_constraints
+WHERE table_name = 'Issue'
+AND constraint_type = 'FOREIGN KEY';
+
+ALTER TABLE Issue DROP FOREIGN KEY Issue_ibfk_1;
+ALTER TABLE Issue DROP FOREIGN KEY Issue_ibfk_2;
+ALTER TABLE Issue DROP PRIMARY KEY;
+
+desc Issue;
+-- Show the structure of ctreate command 
+show create table issue;
+
+-- drop the index 
+alter table Issue
+drop index Book_No;
+
+alter table Issue
+drop index Member_id;
+
+
+-- show the index details and as well as names
+show index from Issue;
+
+
+
+
+30)DESCRIBE Lib_member;
+DESCRIBE Books;
+DESCRIBE Issue;
+
+set AUTO_COMMIT=off;
+
+
