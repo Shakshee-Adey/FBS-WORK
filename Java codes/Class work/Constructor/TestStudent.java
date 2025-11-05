@@ -47,9 +47,9 @@ class Student
     }
                                         // Display function
     void display() {
-        System.out.println("Car Id : " + this.id);
-        System.out.println("Car Name : " + this.name);
-        System.out.println("car Marks : " + this.marks);
+        System.out.println("Student Id : " + this.id);
+        System.out.println("Student Name : " + this.name);
+        System.out.println("Student Marks : " + this.marks);
     }
 } // Student class end here
 class TestStudent
@@ -63,4 +63,5 @@ class TestStudent
    s2.display();
    }// main ends here
 }// TestStudent class end here
+
 
