@@ -1,0 +1,51 @@
+INSERT Query (Basic)
+
+1. insert values in th table.
+
+mysql> insert into employee(id, name, salary, j_date , location)
+    -> values(101, "shakshee", 20000.30, "2025-11-18", "Balaghat"),
+    -> (102,"Prachi", 3200.20, "2024-12-07", "Shivni"),
+    -> (103,"Roop",2000.7,"2024-12-30","Wara");
+
+SELECT Query (Basic)
+
+1. Write a query to display all rows from the table employees.
+
+mysql> select * from employee;
++------+----------+----------+------------+----------+
+| id   | name     | salary   | j_date     | location |
++------+----------+----------+------------+----------+
+|  101 | shakshee | 20000.30 | 2025-11-18 | Balaghat |
+|  102 | Prachi   |  3200.20 | 2024-12-07 | Shivni   |
+|  103 | Roop     |  2000.70 | 2024-12-30 | Wara     |
++------+----------+----------+------------+----------+
+
+2. Write a query to display only name and salary from employees.
+
+mysql> select  name, salary from employee;
++----------+----------+
+| name     | salary   |
++----------+----------+
+| shakshee | 20000.30 |
+| Prachi   |  3200.20 |
+| Roop     |  2000.70 |
++----------+----------+
+
+3. Write a query to display records where salary > 30000.
+
+mysql> select * from employee where salary > 30000 ;
++------+------+----------+------------+----------+
+| id   | name | salary   | j_date     | location |
++------+------+----------+------------+----------+
+|  104 | Prit | 31000.00 | 2023-10-17 | Balaghat |
++------+------+----------+------------+----------+
+
+4. Write a query to display employees whose name starts with 'A'.
+
+mysql> select * from employee where name like "s%";
++------+----------+----------+------------+----------+
+| id   | name     | salary   | j_date     | location |
++------+----------+----------+------------+----------+
+|  101 | shakshee | 20000.30 | 2025-11-18 | Balaghat |
++------+----------+----------+------------+----------+
+
