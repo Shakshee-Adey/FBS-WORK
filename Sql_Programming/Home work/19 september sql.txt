@@ -1,0 +1,395 @@
+mysql> show databases;
+
++--------------------+
+| Database           |
++--------------------+
+| airline            |
+| fbswork            |
+| information_schema |
+| mysql              |
+| mywork             |
+| performance_schema |
+| sys                |
++--------------------+
+
+
+mysql> create database nov21;
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| airline            |
+| fbswork            |
+| information_schema |
+| mysql              |
+| mywork             |
+| nov21              |
+| performance_schema |
+| sys                |
++--------------------+
+
+mysql> use nov21;
+Database changed
+
+mysql> create table book(bno int,name varchar(30),aName varchar(70),amt int);                     //create table book
+
+mysql> desc book;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| bno   | int         | YES  |     | NULL    |       |
+| name  | varchar(30) | YES  |     | NULL    |       |
+| aName | varchar(70) | YES  |     | NULL    |       |
+| amt   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+mysql> create table student(rollno int,name varchar(20),marks tinyint,city varchar(20));                 //create table student
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | YES  |     | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| marks  | tinyint     | YES  |     | NULL    |       |
+| city   | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+mysql> alter table student                                                             //add column mobno using alter with add command
+    -> add column mobno int; 
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | YES  |     | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| marks  | tinyint     | YES  |     | NULL    |       |
+| city   | varchar(20) | YES  |     | NULL    |       |
+| mobno  | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+mysql> create table employee(id int,name varchar(20),salary float(7,2),gender char(1),j_date date);   //create table employee
+
+mysql> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | int         | YES  |     | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| salary | float(7,2)  | YES  |     | NULL    |       |
+| gender | char(1)     | YES  |     | NULL    |       |
+| j_date | date        | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+mysql> alter table employee                                    //when we add multiple column in the table so we use this add column cname datatype,add column cname1 datatype;
+    -> add column age int,
+    -> add column address varchar(30);
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | YES  |     | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| salary  | float(7,2)  | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| address | varchar(30) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+mysql> desc table employee;                                                // this command is give you internal detail about table (desc table tablename;)
++----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+-------+
+| id | select_type | table    | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra |
++----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+-------+
+|  1 | SIMPLE      | employee | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    1 |   100.00 | NULL  |
++----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+----
+
+mysql> alter table employee           //when we want to change our column datatype so we use {modify column cname newdatatype;}
+    -> modify column salary int;
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | YES  |     | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| address | varchar(30) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+mysql> alter table employee                     //when we want to change our column name so we use change command(change column oldcname newcname datatype;)
+    -> change column address city varchar(20);
+
+mysql> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | int         | YES  |     | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| salary | int         | YES  |     | NULL    |       |
+| gender | char(1)     | YES  |     | NULL    |       |
+| j_date | date        | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
+| city   | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+mysql> alter table employee                 when we want to change multiple column name so we use change(change column oldcname newcname datatpye,change column oldcname newcname datatype;)
+    -> change column name ename varchar(20),
+    -> change column id eid int;
+
+mysql> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int         | YES  |     | NULL    |       |
+| ename  | varchar(20) | YES  |     | NULL    |       |
+| salary | int         | YES  |     | NULL    |       |
+| gender | char(1)     | YES  |     | NULL    |       |
+| j_date | date        | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
+| city   | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+mysql> alter table employee   //when we want to delete a column or delete a table so weuse this (drop cloumn cname;)
+    -> drop column city;
+
+mysql> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int         | YES  |     | NULL    |       |
+| ename  | varchar(20) | YES  |     | NULL    |       |
+| salary | int         | YES  |     | NULL    |       |
+| gender | char(1)     | YES  |     | NULL    |       |
+| j_date | date        | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+mysql> alter table employee   //when we want to delete a multiple column or delete a table so weuse this (drop cloumn cname, drop column cname;)
+    -> drop column city,
+    -> drop column age;
+
+mysql> alter table employee   //when we to add new column in first so i use this (add column cname datatype first;)
+    -> add column emailid int
+    -> first;
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| emailid | int         | YES  |     | NULL    |       |
+| eid     | int         | YES  |     | NULL    |       |
+| ename   | varchar(20) | YES  |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+mysql> alter table employee    //when we want to add new column between ename and salary so i use this (add column address varchar(30) after cname; {jiske bad likhna h})
+    -> add column address varchar(30)
+    -> after ename;
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| emailid | int         | YES  |     | NULL    |       |
+| eid     | int         | YES  |     | NULL    |       |
+| ename   | varchar(20) | YES  |     | NULL    |       |
+| address | varchar(30) | YES  |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+mysql> alter table employee   //delete emailid column 
+    -> drop column emailid; 
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | YES  |     | NULL    |       |
+| ename   | varchar(20) | YES  |     | NULL    |       |
+| address | varchar(30) | YES  |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+mysql> alter table employee   //when we want to add primary key so i use (add primary key(cname);)when table already created we use alter command and add
+    -> add primary key(eid);
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| ename   | varchar(20) | YES  |     | NULL    |       |
+| address | varchar(30) | YES  |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+mysql> insert into employee(eid, ename,salary)  //when we want to insert a values in the table so we use this(insert into tablename(columnname1 , c2name, c3name) values(value1, value2, value3);)
+    -> values(101,"Yogesh",23000);
+
+mysql> insert into employee(eid, ename,salary)   //if i add values and our eid is pk then its not allowed duplicate value so its give error
+    -> values(101,"Shrikant",23000);
+ERROR 1062 (23000): Duplicate entry '101' for key 'employee.PRIMARY'
+
+mysql> insert into employee(ename,salary)   //its give me error because i made eid is pk and i didnt insert the value so its give error because pk is not null
+    -> values("Shrikant",23000);
+ERROR 1364 (HY000): Field 'eid' doesn't have a default value
+
+mysql> table employee;                                      //when i want to show the table entry i use (table tname;)
++-----+--------+---------+--------+--------+--------+------+
+| eid | ename  | address | salary | gender | j_date | age  |
++-----+--------+---------+--------+--------+--------+------+
+| 101 | Yogesh | NULL    |  23000 | NULL   | NULL   | NULL |
++-----+--------+---------+--------+--------+--------+------+
+
+
+mysql> alter table employee                   //when i made ename is not null so (modify cloumn cname datatype not null;)now ename column is not empty
+    -> modify column ename varchar(20) not null;
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| ename   | varchar(20) | NO   |     | NULL    |       |
+| address | varchar(30) | YES  |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+mysql> insert into employee(eid,salary)       //because i made ename is not null so ename blank nhi hoga so here i give the cname and values
+    -> values(102,23000);
+ERROR 1364 (HY000): Field 'ename' doesn't have a default value
+
+mysql> alter table student           //when i use unique constraints mobno is unique and allow null value(modify column cname datatype unique;)
+    -> modify column mobno int unique;
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | YES  |     | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| marks  | tinyint     | YES  |     | NULL    |       |
+| city   | varchar(20) | YES  |     | NULL    |       |
+| mobno  | int         | YES  | UNI | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+mysql> insert into student(rollno,name,mobno)
+    -> values(1,"abc",12345);
+mysql> insert into student(rollno,name,mobno)   //because mobno must be unique that why its give the error
+    -> values(1,"xyz",12345);
+ERROR 1062 (23000): Duplicate entry '12345' for key 'student.mobno'
+
+mysql> table student;                           //show table
++--------+------+-------+------+-------+
+| rollno | name | marks | city | mobno |
++--------+------+-------+------+-------+
+|      1 | abc  |  NULL | NULL | 12345 |
++--------+------+-------+------+-------+
+
+mysql> insert into student(rollno,name)   //hm unique constraints me null value rkh skte h but duplicet not allowed in unique cons.
+    -> values(1,"xyz");
+
+mysql> table student;
++--------+------+-------+------+-------+
+| rollno | name | marks | city | mobno |
++--------+------+-------+------+-------+
+|      1 | abc  |  NULL | NULL | 12345 |
+|      1 | xyz  |  NULL | NULL |  NULL |
++--------+------+-------+------+-------+
+
+mysql> alter table employee               //remove not null constriants 
+    -> modify column ename varchar(20);  
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| ename   | varchar(20) | YES  |     | NULL    |       |
+| address | varchar(30) | YES  |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+mysql> alter table employee                             // when i add default c. so i put the vlaues (modify column cname datatype default "value";)
+    -> modify column address varchar(30) default "pune";
+
+mysql> insert into employee(eid , ename)
+    -> values(102,"Shrikant");
+
+mysql> table employee;   //defult address is "pune"
++-----+----------+---------+--------+--------+--------+------+
+| eid | ename    | address | salary | gender | j_date | age  |
++-----+----------+---------+--------+--------+--------+------+
+| 101 | Yogesh   | NULL    |  23000 | NULL   | NULL   | NULL |
+| 102 | Shrikant | pune    |   NULL | NULL   | NULL   | NULL |
++-----+----------+---------+--------+--------+--------+------+
+
+mysql> desc employee;                                   //its showing pune in default column
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| ename   | varchar(20) | YES  |     | NULL    |       |
+| address | varchar(30) | YES  |     | pune    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+mysql> create table Account     //when i created a table and add that time of constraits.
+    -> (accno int primary key,
+    -> name varchar(20) not null,
+    -> balance int default 1000,
+    -> email_id varchar(20) unique);
+
+mysql> desc Account;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| accno    | int         | NO   | PRI | NULL    |       |
+| name     | varchar(20) | NO   |     | NULL    |       |
+| balance  | int         | YES  |     | 1000    |       |
+| email_id | varchar(20) | YES  | UNI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+mysql> create table project_details  // composite key(when 2 columns are the primary key so i wright this )
+    -> (eid int,
+    -> pcode varchar(20),
+    -> hours int,
+    -> primary key(eid,pcode));
+
+mysql> desc project_details;   //here are primary key is only one
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| eid   | int         | NO   | PRI | NULL    |       |
+| pcode | varchar(20) | NO   | PRI | NULL    |       |
+| hours | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
