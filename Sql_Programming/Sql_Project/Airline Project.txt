@@ -1,0 +1,715 @@
+//Airline project
+ 
+//Problem Statement: Database Design for Airline Reservation System
+
+//Design a database system that supports the storage and retrieval of airline-related data,
+ensuring accurate booking records, seamless itinerary management, and optimal user
+experience.
+
+//Key Requirements:
+1. Flight Information:
+Capture and store essential flight details such as flight number, origin, destination,
+departure time, and arrival time.
+2. Passenger Information:
+Design tables to store passenger details, including names, contact information, and
+seat preferences.
+3. Booking Records:
+Create tables to manage booking records, linking passengers to specific flights,
+recording reservation status, and payment details.
+4. Flight Crew Information:
+Capture and manage information about flight crew members, including pilots and
+attendants.
+5. Aircraft Information:
+Design tables to store details about aircraft, including registration numbers,
+models, and seating configurations.
+6. Itinerary Management:
+Implement tables to handle passenger itineraries, connecting multiple flights for
+seamless travel arrangements.
+7. Pricing and Fare Information:
+Create tables to manage pricing and fare information for different flight routes and
+seat classes.
+
+...................................................................................................................................................................................................
+
+TABLES :- 
+1) Flight table
+2) Passenger table
+3) Booking table
+4) Crew table
+5) Fare table
+6) Aircraft table
+7) Itinerary table
+8) Flight_crewassignment 
+
+...................................................................................................................................................................................................................................
+
+Relationships :-
+1)Aircraft → Flight: One aircraft can have multiple flights.
+2)Flight → Booking: One flight can have multiple bookings.
+3)Passenger → Booking: One passenger can have multiple bookings.
+4)Booking → Itinerary: Each booking has an itinerary.
+5)Fare → Flight: Multiple fare classes for each flight.
+6)Fligth_crewAss -> Crew : many to many
+
+.........................................................................................................................................................................................................................................................................................
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| airline            |
+| fbswork            |
+| information_schema |
+| mysql              |
+| mywork             |
+| nov21              |
+| performance_schema |
+| sys                |
++--------------------+
+
+mysql> use airline
+Database changed
+mysql> show tables;
+Empty set (0.01 sec)
+
+............................................................................................................................................................................................. 
+
+TABLE FLIGHT :- 
+
+mysql> create table Flight(flight_id int , flight_no varchar(20) , departure_time datetime, arrical_time datetime, origin varchar(50), destination_city varchar(50),aircraft_id varchar(50));
+
+mysql> desc Flight;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| flight_id        | int         | YES  |     | NULL    |       |
+| flight_no        | varchar(20) | YES  |     | NULL    |       |
+| departure_time   | datetime    | YES  |     | NULL    |       |
+| arrical_time     | datetime    | YES  |     | NULL    |       |
+| origin           | varchar(50) | YES  |     | NULL    |       |
+| destination_city | varchar(50) | YES  |     | NULL    |       |
+| aircraft_id      | varchar(50) | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+
+mysql> alter table Flight
+    -> add primary key (flight_id);
+
+mysql> desc Flight;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| flight_id        | int         | NO   | PRI | NULL    |       |
+| flight_no        | varchar(20) | YES  |     | NULL    |       |
+| departure_time   | datetime    | YES  |     | NULL    |       |
+| arrical_time     | datetime    | YES  |     | NULL    |       |
+| origin           | varchar(50) | YES  |     | NULL    |       |
+| destination_city | varchar(50) | YES  |     | NULL    |       |
+| aircraft_id      | varchar(50) | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+
+mysql> alter table Flight
+    -> ADD CONSTRAINT foreign key(aircraft_id) references Aircraft(aircraft_id);
+
+mysql> desc Flight;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| flight_id        | int         | NO   | PRI | NULL    |       |
+| flight_no        | varchar(20) | YES  |     | NULL    |       |
+| departure_time   | datetime    | YES  |     | NULL    |       |
+| arrical_time     | datetime    | YES  |     | NULL    |       |
+| origin           | varchar(50) | YES  |     | NULL    |       |
+| destination_city | varchar(50) | YES  |     | NULL    |       |
+| aircraft_id      | varchar(50) | YES  | MUL | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+
+mysql> INSERT INTO Flight VALUES
+    -> (101, 'AI203', '2025-11-28 08:30:00', '2025-11-28 10:45:00', 'Delhi', 'Mumbai', 'A320'),
+    -> (102, '6E512', '2025-11-28 09:15:00', '2025-11-28 11:20:00', 'Mumbai', 'Bangalore', 'B737'),
+    -> (103, 'UK701', '2025-11-28 06:50:00', '2025-11-28 08:30:00', 'Chennai', 'Hyderabad', 'A320'),
+    -> (104, 'SG401', '2025-11-28 14:20:00', '2025-11-28 16:40:00', 'Delhi', 'Kolkata', 'B737'),
+    -> (105, 'AI509', '2025-11-29 05:45:00', '2025-11-29 08:10:00', 'Bangalore', 'Delhi', 'A321'),
+    -> (106, '6E890', '2025-11-29 12:10:00', '2025-11-29 13:55:00', 'Mumbai', 'Goa', 'A320'),
+    -> (107, 'SG702', '2025-11-29 17:20:00', '2025-11-29 19:10:00', 'Hyderabad', 'Delhi', 'B737'),
+    -> (108, 'AI112', '2025-11-30 08:00:00', '2025-11-30 10:00:00', 'Delhi', 'Chennai', 'A320'),
+    -> (109, '6E331', '2025-11-30 16:45:00', '2025-11-30 18:55:00', 'Kolkata', 'Bangalore', 'A321'),
+    -> (110, 'UK222', '2025-11-30 19:15:00', '2025-11-30 21:05:00', 'Goa', 'Mumbai', 'B737'),
+    -> (111, 'SG150', '2025-12-01 06:10:00', '2025-12-01 08:30:00', 'Delhi', 'Pune', 'A320'),
+    -> (112, 'AI330', '2025-12-01 10:20:00', '2025-12-01 12:50:00', 'Pune', 'Delhi', 'A321'),
+    -> (113, '6E768', '2025-12-01 14:30:00', '2025-12-01 16:10:00', 'Hyderabad', 'Mumbai', 'B737'),
+    -> (114, 'UK555', '2025-12-01 18:40:00', '2025-12-01 20:25:00', 'Mumbai', 'Chennai', 'A320'),
+    -> (115, 'SG909', '2025-12-02 07:00:00', '2025-12-02 09:25:00', 'Chennai', 'Kolkata', 'B737'),
+    -> (116, 'AI777', '2025-12-02 11:15:00', '2025-12-02 13:40:00', 'Bangalore', 'Hyderabad', 'A319'),
+    -> (117, '6E450', '2025-12-02 15:55:00', '2025-12-02 17:50:00', 'Goa', 'Delhi', 'A320'),
+    -> (118, 'UK718', '2025-12-02 20:20:00', '2025-12-02 22:10:00', 'Delhi', 'Ahmedabad', 'B737'),
+    -> (119, 'SG330', '2025-12-03 09:00:00', '2025-12-03 11:15:00', 'Ahmedabad', 'Mumbai', 'A320'),
+    -> (120, 'AI889', '2025-12-03 13:30:00', '2025-12-03 15:40:00', 'Mumbai', 'Delhi', 'A321');
+
+
+mysql> table Flight;
++-----------+-----------+---------------------+---------------------+-----------+------------------+-------------+
+| flight_id | flight_no | departure_time      | arrical_time        | origin    | destination_city | aircraft_id |
++-----------+-----------+---------------------+---------------------+-----------+------------------+-------------+
+|       101 | AI203     | 2025-11-28 08:30:00 | 2025-11-28 10:45:00 | Delhi     | Mumbai           | A320        |
+|       102 | 6E512     | 2025-11-28 09:15:00 | 2025-11-28 11:20:00 | Mumbai    | Bangalore        | B737        |
+|       103 | UK701     | 2025-11-28 06:50:00 | 2025-11-28 08:30:00 | Chennai   | Hyderabad        | A320        |
+|       104 | SG401     | 2025-11-28 14:20:00 | 2025-11-28 16:40:00 | Delhi     | Kolkata          | B737        |
+|       105 | AI509     | 2025-11-29 05:45:00 | 2025-11-29 08:10:00 | Bangalore | Delhi            | A321        |
+|       106 | 6E890     | 2025-11-29 12:10:00 | 2025-11-29 13:55:00 | Mumbai    | Goa              | A320        |
+|       107 | SG702     | 2025-11-29 17:20:00 | 2025-11-29 19:10:00 | Hyderabad | Delhi            | B737        |
+|       108 | AI112     | 2025-11-30 08:00:00 | 2025-11-30 10:00:00 | Delhi     | Chennai          | A320        |
+|       109 | 6E331     | 2025-11-30 16:45:00 | 2025-11-30 18:55:00 | Kolkata   | Bangalore        | A321        |
+|       110 | UK222     | 2025-11-30 19:15:00 | 2025-11-30 21:05:00 | Goa       | Mumbai           | B737        |
+|       111 | SG150     | 2025-12-01 06:10:00 | 2025-12-01 08:30:00 | Delhi     | Pune             | A320        |
+|       112 | AI330     | 2025-12-01 10:20:00 | 2025-12-01 12:50:00 | Pune      | Delhi            | A321        |
+|       113 | 6E768     | 2025-12-01 14:30:00 | 2025-12-01 16:10:00 | Hyderabad | Mumbai           | B737        |
+|       114 | UK555     | 2025-12-01 18:40:00 | 2025-12-01 20:25:00 | Mumbai    | Chennai          | A320        |
+|       115 | SG909     | 2025-12-02 07:00:00 | 2025-12-02 09:25:00 | Chennai   | Kolkata          | B737        |
+|       116 | AI777     | 2025-12-02 11:15:00 | 2025-12-02 13:40:00 | Bangalore | Hyderabad        | A319        |
+|       117 | 6E450     | 2025-12-02 15:55:00 | 2025-12-02 17:50:00 | Goa       | Delhi            | A320        |
+|       118 | UK718     | 2025-12-02 20:20:00 | 2025-12-02 22:10:00 | Delhi     | Ahmedabad        | B737        |
+|       119 | SG330     | 2025-12-03 09:00:00 | 2025-12-03 11:15:00 | Ahmedabad | Mumbai           | A320        |
+|       120 | AI889     | 2025-12-03 13:30:00 | 2025-12-03 15:40:00 | Mumbai    | Delhi            | A321        |
++-----------+-----------+---------------------+---------------------+-----------+------------------+-------------+
+
+.............................................................................................................................................................................................
+
+TABLE PASSENGER :-
+
+mysql> create table Passenger(passenger_id int primary key, p_name varchar(50), email varchar(100), contact_no varchar(100),seat_preference varchar(50));
+
+mysql> desc passenger;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| passenger_id    | int          | NO   | PRI | NULL    |       |
+| p_name          | varchar(50)  | YES  |     | NULL    |       |
+| email           | varchar(100) | YES  |     | NULL    |       |
+| contact_no      | varchar(100) | YES  |     | NULL    |       |
+| seat_preference | varchar(50)  | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+
+mysql> INSERT INTO passenger(passenger_id, p_name, email, contact_no, seat_preference) VALUES
+    -> (1, 'Amit Sharma', 'amit.sharma@example.com', '9876543210', 'Window'),
+    -> (2, 'Priya Verma', 'priya.verma@example.com', '9123456780', 'Aisle'),
+    -> (3, 'Rahul Singh', 'rahul.singh@example.com', '9988776655', 'Middle'),
+    -> (4, 'Sneha Patel', 'sneha.patel@example.com', '9090909090', 'Window'),
+    -> (5, 'Rohit Mehra', 'rohit.mehra@example.com', '9801234567', 'Aisle'),
+    -> (6, 'Kavita Joshi', 'kavita.joshi@example.com', '9823456789', 'Window'),
+    -> (7, 'Arjun Yadav', 'arjun.yadav@example.com', '9955667788', 'Middle'),
+    -> (8, 'Meera Kulkarni', 'meera.k@example.com', '9876501234', 'Aisle'),
+    -> (9, 'Vikram Desai', 'vikram.desai@example.com', '9797979797', 'Window'),
+    -> (10, 'Neha Mishra', 'neha.mishra@example.com', '9100100100', 'Middle'),
+    -> (11, 'Harsh Gupta', 'harsh.gupta@example.com', '9123987654', 'Aisle'),
+    -> (12, 'Pooja Shah', 'pooja.shah@example.com', '9870011223', 'Window'),
+    -> (13, 'Sagar Rao', 'sagar.rao@example.com', '9898989898', 'Middle'),
+    -> (14, 'Anita Fernandes', 'anita.f@example.com', '9900112233', 'Aisle'),
+    -> (15, 'Karan Malhotra', 'karan.m@example.com', '9811223344', 'Window'),
+    -> (16, 'Ritu Kapoor', 'ritu.kapoor@example.com', '9822334455', 'Middle'),
+    -> (17, 'Deepak Jain', 'deepak.jain@example.com', '9833445566', 'Aisle'),
+    -> (18, 'Simran Gill', 'simran.gill@example.com', '9844556677', 'Window'),
+    -> (19, 'Manish Agarwal', 'manish.agarwal@example.com', '9855667788', 'Middle'),
+    -> (20, 'Alisha Khan', 'alisha.khan@example.com', '9866778899', 'Aisle');
+
+
+mysql> table passenger;
++--------------+-----------------+----------------------------+------------+-----------------+
+| passenger_id | p_name          | email                      | contact_no | seat_preference |
++--------------+-----------------+----------------------------+------------+-----------------+
+|            1 | Amit Sharma     | amit.sharma@example.com    | 9876543210 | Window          |
+|            2 | Priya Verma     | priya.verma@example.com    | 9123456780 | Aisle           |
+|            3 | Rahul Singh     | rahul.singh@example.com    | 9988776655 | Middle          |
+|            4 | Sneha Patel     | sneha.patel@example.com    | 9090909090 | Window          |
+|            5 | Rohit Mehra     | rohit.mehra@example.com    | 9801234567 | Aisle           |
+|            6 | Kavita Joshi    | kavita.joshi@example.com   | 9823456789 | Window          |
+|            7 | Arjun Yadav     | arjun.yadav@example.com    | 9955667788 | Middle          |
+|            8 | Meera Kulkarni  | meera.k@example.com        | 9876501234 | Aisle           |
+|            9 | Vikram Desai    | vikram.desai@example.com   | 9797979797 | Window          |
+|           10 | Neha Mishra     | neha.mishra@example.com    | 9100100100 | Middle          |
+|           11 | Harsh Gupta     | harsh.gupta@example.com    | 9123987654 | Aisle           |
+|           12 | Pooja Shah      | pooja.shah@example.com     | 9870011223 | Window          |
+|           13 | Sagar Rao       | sagar.rao@example.com      | 9898989898 | Middle          |
+|           14 | Anita Fernandes | anita.f@example.com        | 9900112233 | Aisle           |
+|           15 | Karan Malhotra  | karan.m@example.com        | 9811223344 | Window          |
+|           16 | Ritu Kapoor     | ritu.kapoor@example.com    | 9822334455 | Middle          |
+|           17 | Deepak Jain     | deepak.jain@example.com    | 9833445566 | Aisle           |
+|           18 | Simran Gill     | simran.gill@example.com    | 9844556677 | Window          |
+|           19 | Manish Agarwal  | manish.agarwal@example.com | 9855667788 | Middle          |
+|           20 | Alisha Khan     | alisha.khan@example.com    | 9866778899 | Aisle           |
++--------------+-----------------+----------------------------+------------+-----------------+
+
+............................................................................................................................................................................................
+
+TABLE BOOKING :- 
+
+mysql> create table Booking(booking_id int,booking_date date, passenger_id int, flight_id int, res_status varchar(50), payment_atatus varchar(50));
+
+mysql> desc Booking;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| booking_id     | int         | YES  |     | NULL    |       |
+| booking_date   | date        | YES  |     | NULL    |       |
+| passenger_id   | int         | YES  |     | NULL    |       |
+| flight_id      | int         | YES  |     | NULL    |       |
+| res_status     | varchar(50) | YES  |     | NULL    |       |
+| payment_atatus | varchar(50) | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+
+mysql> alter table Booking
+    -> add primary key (booking_id);
+
+mysql> desc Booking;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| booking_id     | int         | NO   | PRI | NULL    |       |
+| booking_date   | date        | YES  |     | NULL    |       |
+| passenger_id   | int         | YES  |     | NULL    |       |
+| flight_id      | int         | YES  |     | NULL    |       |
+| res_status     | varchar(50) | YES  |     | NULL    |       |
+| payment_atatus | varchar(50) | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+
+mysql> alter table Booking
+    -> add constraint foreign key(passenger_id) references Passenger(passenger_id);
+
+mysql> alter table Booking
+    -> add constraint foreign key(flight_id) references Flight(flight_id);
+
+mysql> desc Booking;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| booking_id     | int         | NO   | PRI | NULL    |       |
+| booking_date   | date        | YES  |     | NULL    |       |
+| passenger_id   | int         | YES  | MUL | NULL    |       |
+| flight_id      | int         | YES  | MUL | NULL    |       |
+| res_status     | varchar(50) | YES  |     | NULL    |       |
+| payment_atatus | varchar(50) | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+
+mysql> INSERT INTO Booking(booking_id, booking_date, passenger_id, flight_id, res_status, payment_atatus) VALUES
+    -> (1, '2025-01-10', 1, 101, 'Confirmed', 'Paid'),
+    -> (2, '2025-01-11', 2, 102, 'Pending', 'Unpaid'),
+    -> (3, '2025-01-12', 3, 103, 'Confirmed', 'Paid'),
+    -> (4, '2025-01-12', 4, 104, 'Cancelled', 'Refunded'),
+    -> (5, '2025-01-13', 5, 105, 'Confirmed', 'Paid'),
+    -> (6, '2025-01-14', 6, 101, 'Pending', 'Unpaid'),
+    -> (7, '2025-01-15', 7, 102, 'Confirmed', 'Paid'),
+    -> (8, '2025-01-16', 8, 103, 'Cancelled', 'Refunded'),
+    -> (9, '2025-01-16', 9, 104, 'Confirmed', 'Paid'),
+    -> (10, '2025-01-17', 10, 105, 'Pending', 'Unpaid'),
+    -> (11, '2025-01-18', 11, 101, 'Confirmed', 'Paid'),
+    -> (12, '2025-01-18', 12, 102, 'Confirmed', 'Paid'),
+    -> (13, '2025-01-19', 13, 103, 'Pending', 'Unpaid'),
+    -> (14, '2025-01-20', 14, 104, 'Cancelled', 'Refunded'),
+    -> (15, '2025-01-20', 15, 105, 'Confirmed', 'Paid'),
+    -> (16, '2025-01-21', 16, 101, 'Confirmed', 'Paid'),
+    -> (17, '2025-01-21', 17, 102, 'Pending', 'Unpaid'),
+    -> (18, '2025-01-22', 18, 103, 'Confirmed', 'Paid'),
+    -> (19, '2025-01-22', 19, 104, 'Pending', 'Unpaid'),
+    -> (20, '2025-01-23', 20, 105, 'Confirmed', 'Paid');
+Query OK, 20 rows affected (0.01 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql> table Booking;
++------------+--------------+--------------+-----------+------------+----------------+
+| booking_id | booking_date | passenger_id | flight_id | res_status | payment_atatus |
++------------+--------------+--------------+-----------+------------+----------------+
+|          1 | 2025-01-10   |            1 |       101 | Confirmed  | Paid           |
+|          2 | 2025-01-11   |            2 |       102 | Pending    | Unpaid         |
+|          3 | 2025-01-12   |            3 |       103 | Confirmed  | Paid           |
+|          4 | 2025-01-12   |            4 |       104 | Cancelled  | Refunded       |
+|          5 | 2025-01-13   |            5 |       105 | Confirmed  | Paid           |
+|          6 | 2025-01-14   |            6 |       101 | Pending    | Unpaid         |
+|          7 | 2025-01-15   |            7 |       102 | Confirmed  | Paid           |
+|          8 | 2025-01-16   |            8 |       103 | Cancelled  | Refunded       |
+|          9 | 2025-01-16   |            9 |       104 | Confirmed  | Paid           |
+|         10 | 2025-01-17   |           10 |       105 | Pending    | Unpaid         |
+|         11 | 2025-01-18   |           11 |       101 | Confirmed  | Paid           |
+|         12 | 2025-01-18   |           12 |       102 | Confirmed  | Paid           |
+|         13 | 2025-01-19   |           13 |       103 | Pending    | Unpaid         |
+|         14 | 2025-01-20   |           14 |       104 | Cancelled  | Refunded       |
+|         15 | 2025-01-20   |           15 |       105 | Confirmed  | Paid           |
+|         16 | 2025-01-21   |           16 |       101 | Confirmed  | Paid           |
+|         17 | 2025-01-21   |           17 |       102 | Pending    | Unpaid         |
+|         18 | 2025-01-22   |           18 |       103 | Confirmed  | Paid           |
+|         19 | 2025-01-22   |           19 |       104 | Pending    | Unpaid         |
+|         20 | 2025-01-23   |           20 |       105 | Confirmed  | Paid           |
++------------+--------------+--------------+-----------+------------+----------------+
+20 rows in set (0.00 sec)
+
+..............................................................................................................................................................................................
+
+TABLE CREW :-
+
+mysql> create table Crew(crew_id int primary key, c_name varchar(50), c_role varchar(30), contact_no varchar(50));
+
+mysql> desc Crew;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| crew_id    | int         | NO   | PRI | NULL    |       |
+| c_name     | varchar(50) | YES  |     | NULL    |       |
+| c_role     | varchar(30) | YES  |     | NULL    |       |
+| contact_no | varchar(50) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+
+mysql> INSERT INTO Crew(crew_id, c_name, c_role, contact_no) VALUES
+    -> (1, 'Amit Sharma', 'Pilot', '9876543210'),
+    -> (2, 'Priya Verma', 'Co-Pilot', '9123456780'),
+    -> (3, 'Rahul Singh', 'Cabin Crew', '9988776655'),
+    -> (4, 'Sneha Patel', 'Cabin Crew', '9090909090'),
+    -> (5, 'Rohit Mehra', 'Pilot', '9801234567'),
+    -> (6, 'Kavita Joshi', 'Co-Pilot', '9823456789'),
+    -> (7, 'Arjun Yadav', 'Cabin Crew', '9955667788'),
+    -> (8, 'Meera Kulkarni', 'Cabin Crew', '9876501234'),
+    -> (9, 'Vikram Desai', 'Pilot', '9797979797'),
+    -> (10, 'Neha Mishra', 'Co-Pilot', '9100100100'),
+    -> (11, 'Harsh Gupta', 'Cabin Crew', '9123987654'),
+    -> (12, 'Pooja Shah', 'Cabin Crew', '9870011223'),
+    -> (13, 'Sagar Rao', 'Pilot', '9898989898'),
+    -> (14, 'Anita Fernandes', 'Co-Pilot', '9900112233'),
+    -> (15, 'Karan Malhotra', 'Cabin Crew', '9811223344'),
+    -> (16, 'Ritu Kapoor', 'Cabin Crew', '9822334455'),
+    -> (17, 'Deepak Jain', 'Pilot', '9833445566'),
+    -> (18, 'Simran Gill', 'Co-Pilot', '9844556677'),
+    -> (19, 'Manish Agarwal', 'Cabin Crew', '9855667788'),
+    -> (20, 'Alisha Khan', 'Cabin Crew', '9866778899');
+
+mysql> table Crew;
++---------+-----------------+------------+------------+
+| crew_id | c_name          | c_role     | contact_no |
++---------+-----------------+------------+------------+
+|       1 | Amit Sharma     | Pilot      | 9876543210 |
+|       2 | Priya Verma     | Co-Pilot   | 9123456780 |
+|       3 | Rahul Singh     | Cabin Crew | 9988776655 |
+|       4 | Sneha Patel     | Cabin Crew | 9090909090 |
+|       5 | Rohit Mehra     | Pilot      | 9801234567 |
+|       6 | Kavita Joshi    | Co-Pilot   | 9823456789 |
+|       7 | Arjun Yadav     | Cabin Crew | 9955667788 |
+|       8 | Meera Kulkarni  | Cabin Crew | 9876501234 |
+|       9 | Vikram Desai    | Pilot      | 9797979797 |
+|      10 | Neha Mishra     | Co-Pilot   | 9100100100 |
+|      11 | Harsh Gupta     | Cabin Crew | 9123987654 |
+|      12 | Pooja Shah      | Cabin Crew | 9870011223 |
+|      13 | Sagar Rao       | Pilot      | 9898989898 |
+|      14 | Anita Fernandes | Co-Pilot   | 9900112233 |
+|      15 | Karan Malhotra  | Cabin Crew | 9811223344 |
+|      16 | Ritu Kapoor     | Cabin Crew | 9822334455 |
+|      17 | Deepak Jain     | Pilot      | 9833445566 |
+|      18 | Simran Gill     | Co-Pilot   | 9844556677 |
+|      19 | Manish Agarwal  | Cabin Crew | 9855667788 |
+|      20 | Alisha Khan     | Cabin Crew | 9866778899 |
++---------+-----------------+------------+------------+
+..............................................................................................................................................................................................
+
+TABLE FARE :- 
+
+mysql> create table Fare(fare_id int primary key ,flight_id int,class varchar(50), t_price decimal(10,2));
+
+mysql> desc Fare;
++-----------+---------------+------+-----+---------+-------+
+| Field     | Type          | Null | Key | Default | Extra |
++-----------+---------------+------+-----+---------+-------+
+| fare_id   | int           | NO   | PRI | NULL    |       |
+| flight_id | int           | YES  |     | NULL    |       |
+| class     | varchar(50)   | YES  |     | NULL    |       |
+| t_price   | decimal(10,2) | YES  |     | NULL    |       |
++-----------+---------------+------+-----+---------+-------+
+
+mysql> alter table Fare
+    -> add constraint foreign key(flight_id) references Flight(flight_id);
+
+mysql> desc Fare;
++-----------+---------------+------+-----+---------+-------+
+| Field     | Type          | Null | Key | Default | Extra |
++-----------+---------------+------+-----+---------+-------+
+| fare_id   | int           | NO   | PRI | NULL    |       |
+| flight_id | int           | YES  | MUL | NULL    |       |
+| class     | varchar(50)   | YES  |     | NULL    |       |
+| t_price   | decimal(10,2) | YES  |     | NULL    |       |
++-----------+---------------+------+-----+---------+-------+
+
+mysql> INSERT INTO Fare(fare_id, flight_id, class, t_price) VALUES
+    -> (1, 101, 'Economy', 5000.00),
+    -> (2, 101, 'Business', 12000.00),
+    -> (3, 101, 'First', 20000.00),
+    -> (4, 102, 'Economy', 4500.00),
+    -> (5, 102, 'Business', 11000.00),
+    -> (6, 102, 'First', 18000.00),
+    -> (7, 103, 'Economy', 4000.00),
+    -> (8, 103, 'Business', 10500.00),
+    -> (9, 103, 'First', 17500.00),
+    -> (10, 104, 'Economy', 5500.00),
+    -> (11, 104, 'Business', 12500.00),
+    -> (12, 104, 'First', 21000.00),
+    -> (13, 105, 'Economy', 4800.00),
+    -> (14, 105, 'Business', 11500.00),
+    -> (15, 105, 'First', 19000.00),
+    -> (16, 101, 'Economy', 5050.00),
+    -> (17, 102, 'Economy', 4550.00),
+    -> (18, 103, 'Economy', 4050.00),
+    -> (19, 104, 'Economy', 5550.00),
+    -> (20, 105, 'Economy', 4850.00);
+Query OK, 20 rows affected (0.01 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql> table fare;
++---------+-----------+----------+----------+
+| fare_id | flight_id | class    | t_price  |
++---------+-----------+----------+----------+
+|       1 |       101 | Economy  |  5000.00 |
+|       2 |       101 | Business | 12000.00 |
+|       3 |       101 | First    | 20000.00 |
+|       4 |       102 | Economy  |  4500.00 |
+|       5 |       102 | Business | 11000.00 |
+|       6 |       102 | First    | 18000.00 |
+|       7 |       103 | Economy  |  4000.00 |
+|       8 |       103 | Business | 10500.00 |
+|       9 |       103 | First    | 17500.00 |
+|      10 |       104 | Economy  |  5500.00 |
+|      11 |       104 | Business | 12500.00 |
+|      12 |       104 | First    | 21000.00 |
+|      13 |       105 | Economy  |  4800.00 |
+|      14 |       105 | Business | 11500.00 |
+|      15 |       105 | First    | 19000.00 |
+|      16 |       101 | Economy  |  5050.00 |
+|      17 |       102 | Economy  |  4550.00 |
+|      18 |       103 | Economy  |  4050.00 |
+|      19 |       104 | Economy  |  5550.00 |
+|      20 |       105 | Economy  |  4850.00 |
++---------+-----------+----------+----------+
+..............................................................................................................................................................................................
+
+TABLE AIRCRAFT :- 
+
+mysql> create table Aircraft(aircraft_id varchar(50) primary key ,model varchar(40),seating_cap int, ragistration_no varchar(20));
+
+mysql> desc Aircraft;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| aircraft_id     | varchar(50) | NO   | PRI | NULL    |       |
+| model           | varchar(40) | YES  |     | NULL    |       |
+| seating_cap     | int         | YES  |     | NULL    |       |
+| ragistration_no | varchar(20) | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+
+mysql> INSERT INTO Aircraft VALUES
+    -> ('A320',  'Airbus A320',        180, 'VT-AXA'),
+    -> ('A320N', 'Airbus A320 Neo',    186, 'VT-EXF'),
+    -> ('A321',  'Airbus A321',        220, 'VT-PPD'),
+    -> ('A319',  'Airbus A319',        144, 'VT-SCP'),
+    -> ('B737',  'Boeing 737-800',     160, 'VT-BDG'),
+    -> ('B737M', 'Boeing 737 MAX 8',   178, 'VT-MAX'),
+    -> ('B787',  'Boeing 787 Dreamliner', 250, 'VT-TSE'),
+    -> ('B777',  'Boeing 777-300ER',   396, 'VT-ALJ'),
+    -> ('AT76',  'ATR 72-600',          70, 'VT-RKC'),
+    -> ('DH8D',  'Bombardier Q400',     78, 'VT-SQA'),
+    -> ('E190',  'Embraer 190',         98, 'VT-EMB'),
+    -> ('CRJ9',  'CRJ 900',             90, 'VT-CRJ'),
+    -> ('A330',  'Airbus A330-300',    300, 'VT-IWA'),
+    -> ('A350',  'Airbus A350-900',    325, 'VT-AWB'),
+    -> ('B744',  'Boeing 747-400',     416, 'VT-JHS'),
+    -> ('B763',  'Boeing 767-300ER',   261, 'VT-LAE'),
+    -> ('A380',  'Airbus A380',        525, 'VT-AIR'),
+    -> ('B732',  'Boeing 737-200',     130, 'VT-OLD'),
+    -> ('MD82',  'McDonnell Douglas MD-82', 155, 'VT-MD8'),
+    -> ('F100',  'Fokker 100',         100, 'VT-FKR');
+
+mysql> table Aircraft;
++-------------+-------------------------+-------------+-----------------+
+| aircraft_id | model                   | seating_cap | ragistration_no |
++-------------+-------------------------+-------------+-----------------+
+| A319        | Airbus A319             |         144 | VT-SCP          |
+| A320        | Airbus A320             |         180 | VT-AXA          |
+| A320N       | Airbus A320 Neo         |         186 | VT-EXF          |
+| A321        | Airbus A321             |         220 | VT-PPD          |
+| A330        | Airbus A330-300         |         300 | VT-IWA          |
+| A350        | Airbus A350-900         |         325 | VT-AWB          |
+| A380        | Airbus A380             |         525 | VT-AIR          |
+| AT76        | ATR 72-600              |          70 | VT-RKC          |
+| B732        | Boeing 737-200          |         130 | VT-OLD          |
+| B737        | Boeing 737-800          |         160 | VT-BDG          |
+| B737M       | Boeing 737 MAX 8        |         178 | VT-MAX          |
+| B744        | Boeing 747-400          |         416 | VT-JHS          |
+| B763        | Boeing 767-300ER        |         261 | VT-LAE          |
+| B777        | Boeing 777-300ER        |         396 | VT-ALJ          |
+| B787        | Boeing 787 Dreamliner   |         250 | VT-TSE          |
+| CRJ9        | CRJ 900                 |          90 | VT-CRJ          |
+| DH8D        | Bombardier Q400         |          78 | VT-SQA          |
+| E190        | Embraer 190             |          98 | VT-EMB          |
+| F100        | Fokker 100              |         100 | VT-FKR          |
+| MD82        | McDonnell Douglas MD-82 |         155 | VT-MD8          |
++-------------+-------------------------+-------------+-----------------+
+
+...............................................................................................................................................................................................
+
+TABLE ITINERARY :-
+
+mysql> create table Itinerary(itinerary_id INT PRIMARY KEY,
+    ->     booking_id INT,
+    ->     flight_id INT,
+    ->    passenger_id int,
+    ->  total_traveltime datetime);
+
+mysql> desc Itinerary;
++------------------+----------+------+-----+---------+-------+
+| Field            | Type     | Null | Key | Default | Extra |
++------------------+----------+------+-----+---------+-------+
+| itinerary_id     | int      | NO   | PRI | NULL    |       |
+| booking_id       | int      | YES  |     | NULL    |       |
+| flight_id        | int      | YES  |     | NULL    |       |
+| passenger_id     | int      | YES  |     | NULL    |       |
+| total_traveltime | datetime | YES  |     | NULL    |       |
++------------------+----------+------+-----+---------+-------+
+
+mysql> alter table Itinerary
+    -> add constraint foreign key(flight_id) references Flight(flight_id),
+    -> add constraint foreign key(passenger_id) references Passenger(passenger_id),
+    -> add constraint foreign key(booking_id) references Booking(booking_id);
+
+mysql> desc  Itinerary;
++------------------+----------+------+-----+---------+-------+
+| Field            | Type     | Null | Key | Default | Extra |
++------------------+----------+------+-----+---------+-------+
+| itinerary_id     | int      | NO   | PRI | NULL    |       |
+| booking_id       | int      | YES  | MUL | NULL    |       |
+| flight_id        | int      | YES  | MUL | NULL    |       |
+| passenger_id     | int      | YES  | MUL | NULL    |       |
+| total_traveltime | datetime | YES  |     | NULL    |       |
++------------------+----------+------+-----+---------+-------+
+
+mysql> INSERT INTO Itinerary(itinerary_id, booking_id, flight_id, passenger_id, total_traveltime) VALUES
+    -> (1, 1, 101, 1, '2025-11-28 10:45:00'),
+    -> (2, 2, 102, 2, '2025-11-28 11:20:00'),
+    -> (3, 3, 103, 3, '2025-11-28 08:30:00'),
+    -> (4, 4, 104, 4, '2025-11-28 16:40:00'),
+    -> (5, 5, 105, 5, '2025-11-29 08:10:00'),
+    -> (6, 6, 101, 6, '2025-11-29 13:55:00'),
+    -> (7, 7, 102, 7, '2025-11-29 19:10:00'),
+    -> (8, 8, 103, 8, '2025-11-30 10:00:00'),
+    -> (9, 9, 104, 9, '2025-11-30 18:55:00'),
+    -> (10, 10, 105, 10, '2025-11-30 21:05:00'),
+    -> (11, 11, 101, 11, '2025-12-01 08:30:00'),
+    -> (12, 12, 102, 12, '2025-12-01 12:50:00'),
+    -> (13, 13, 103, 13, '2025-12-01 16:10:00'),
+    -> (14, 14, 104, 14, '2025-12-01 20:25:00'),
+    -> (15, 15, 105, 15, '2025-12-02 09:25:00'),
+    -> (16, 16, 101, 16, '2025-12-02 13:40:00'),
+    -> (17, 17, 102, 17, '2025-12-02 17:50:00'),
+    -> (18, 18, 103, 18, '2025-12-02 22:10:00'),
+    -> (19, 19, 104, 19, '2025-12-03 11:15:00'),
+    -> (20, 20, 105, 20, '2025-12-03 15:40:00');
+Query OK, 20 rows affected (0.01 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql>  table Itinerary;
++--------------+------------+-----------+--------------+---------------------+
+| itinerary_id | booking_id | flight_id | passenger_id | total_traveltime    |
++--------------+------------+-----------+--------------+---------------------+
+|            1 |          1 |       101 |            1 | 2025-11-28 10:45:00 |
+|            2 |          2 |       102 |            2 | 2025-11-28 11:20:00 |
+|            3 |          3 |       103 |            3 | 2025-11-28 08:30:00 |
+|            4 |          4 |       104 |            4 | 2025-11-28 16:40:00 |
+|            5 |          5 |       105 |            5 | 2025-11-29 08:10:00 |
+|            6 |          6 |       101 |            6 | 2025-11-29 13:55:00 |
+|            7 |          7 |       102 |            7 | 2025-11-29 19:10:00 |
+|            8 |          8 |       103 |            8 | 2025-11-30 10:00:00 |
+|            9 |          9 |       104 |            9 | 2025-11-30 18:55:00 |
+|           10 |         10 |       105 |           10 | 2025-11-30 21:05:00 |
+|           11 |         11 |       101 |           11 | 2025-12-01 08:30:00 |
+|           12 |         12 |       102 |           12 | 2025-12-01 12:50:00 |
+|           13 |         13 |       103 |           13 | 2025-12-01 16:10:00 |
+|           14 |         14 |       104 |           14 | 2025-12-01 20:25:00 |
+|           15 |         15 |       105 |           15 | 2025-12-02 09:25:00 |
+|           16 |         16 |       101 |           16 | 2025-12-02 13:40:00 |
+|           17 |         17 |       102 |           17 | 2025-12-02 17:50:00 |
+|           18 |         18 |       103 |           18 | 2025-12-02 22:10:00 |
+|           19 |         19 |       104 |           19 | 2025-12-03 11:15:00 |
+|           20 |         20 |       105 |           20 | 2025-12-03 15:40:00 |
++--------------+------------+-----------+--------------+---------------------+
+................................................................................................................................................................................................
+
+TABLE FLIGTH_CREW_ASSIGNMENT :- 
+
+mysql> create table Flight_crewass(flight_crewid int, crew_id int, flight_id int, duty_date date);
+
+mysql> desc Flight_crewass;
++---------------+------+------+-----+---------+-------+
+| Field         | Type | Null | Key | Default | Extra |
++---------------+------+------+-----+---------+-------+
+| flight_crewid | int  | YES  |     | NULL    |       |
+| crew_id       | int  | YES  |     | NULL    |       |
+| flight_id     | int  | YES  |     | NULL    |       |
+| duty_date     | date | YES  |     | NULL    |       |
++---------------+------+------+-----+---------+-------+
+
+mysql> alter table Flight_crewass
+    -> add primary key(flight_crewid);
+
+mysql> desc Flight_crewass;
++---------------+------+------+-----+---------+-------+
+| Field         | Type | Null | Key | Default | Extra |
++---------------+------+------+-----+---------+-------+
+| flight_crewid | int  | NO   | PRI | NULL    |       |
+| crew_id       | int  | YES  |     | NULL    |       |
+| flight_id     | int  | YES  |     | NULL    |       |
+| duty_date     | date | YES  |     | NULL    |       |
++---------------+------+------+-----+---------+-------+
+
+mysql> INSERT INTO Flight_crewass(flight_crewid, crew_id, flight_id, duty_date) VALUES
+    -> (1, 1, 101, '2025-11-28'),
+    -> (2, 2, 101, '2025-11-28'),
+    -> (3, 3, 101, '2025-11-28'),
+    -> (4, 4, 102, '2025-11-28'),
+    -> (5, 5, 102, '2025-11-28'),
+    -> (6, 6, 102, '2025-11-28'),
+    -> (7, 7, 103, '2025-11-29'),
+    -> (8, 8, 103, '2025-11-29'),
+    -> (9, 9, 103, '2025-11-29'),
+    -> (10, 10, 104, '2025-11-29'),
+    -> (11, 11, 104, '2025-11-29'),
+    -> (12, 12, 104, '2025-11-29'),
+    -> (13, 13, 105, '2025-11-30'),
+    -> (14, 14, 105, '2025-11-30'),
+    -> (15, 15, 105, '2025-11-30'),
+    -> (16, 16, 101, '2025-12-01'),
+    -> (17, 17, 102, '2025-12-01'),
+    -> (18, 18, 103, '2025-12-01'),
+    -> (19, 19, 104, '2025-12-01'),
+    -> (20, 20, 105, '2025-12-01');
+Query OK, 20 rows affected (0.03 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql> table Flight_crewass;
++---------------+---------+-----------+------------+
+| flight_crewid | crew_id | flight_id | duty_date  |
++---------------+---------+-----------+------------+
+|             1 |       1 |       101 | 2025-11-28 |
+|             2 |       2 |       101 | 2025-11-28 |
+|             3 |       3 |       101 | 2025-11-28 |
+|             4 |       4 |       102 | 2025-11-28 |
+|             5 |       5 |       102 | 2025-11-28 |
+|             6 |       6 |       102 | 2025-11-28 |
+|             7 |       7 |       103 | 2025-11-29 |
+|             8 |       8 |       103 | 2025-11-29 |
+|             9 |       9 |       103 | 2025-11-29 |
+|            10 |      10 |       104 | 2025-11-29 |
+|            11 |      11 |       104 | 2025-11-29 |
+|            12 |      12 |       104 | 2025-11-29 |
+|            13 |      13 |       105 | 2025-11-30 |
+|            14 |      14 |       105 | 2025-11-30 |
+|            15 |      15 |       105 | 2025-11-30 |
+|            16 |      16 |       101 | 2025-12-01 |
+|            17 |      17 |       102 | 2025-12-01 |
+|            18 |      18 |       103 | 2025-12-01 |
+|            19 |      19 |       104 | 2025-12-01 |
+|            20 |      20 |       105 | 2025-12-01 |
++---------------+---------+-----------+------------+
+
+................................................................................................................................................................................................
+
+
