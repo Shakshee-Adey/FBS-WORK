@@ -1,0 +1,187 @@
+// WHERE CLAUSE PRACTICE :- 
+
+1️⃣ Select all employees whose salary is greater than 30,000.
+
+-> select * from employee
+-> where salary > 30000;
+
+2️⃣ Get all students whose marks are less than 40.
+
+-> select * from student
+-> where marks <40;
+
+3️⃣ Find all products whose price equals 500.
+
+-> select * from product
+-> where price =500;
+
+4️⃣ Show customers who live in “Mumbai”.
+
+-> select * from customer
+-> where address='mumbai';
+
+5️⃣ Get all books published after 2018.
+
+-> select * from books
+-> where published > 2018;
+
+1️⃣ Select employees who work in the ‘IT’ department.
+
+-> select * from employee 
+-> where department = 'IT';
+
+2️⃣ Get customers whose age is greater than or equal to 50.
+
+-> select * from customers
+-> where age >= 50;
+
+3️⃣ Find products whose stock is less than 10.
+
+-> select * from products
+-> where stock <10;
+
+4️⃣ Show orders where status is NOT ‘Delivered’.
+
+(-> select * from orders
+-> where status != 'Delivered';)
+
+or  -> select * from orders
+    -> where status <> 'Delivered';
+
+5️⃣ Select students whose name starts with ‘S’.
+
+-> select * from students
+-> where name like 's%';
+
+5️⃣ Select students whose name is ‘Sham’.
+
+-> select * from students
+-> where name like 'sham';
+
+6️⃣ Find movies released between 2015 and 2020.
+
+-> select * from movies
+-> where year between 2015 and 2020;
+
+7️⃣ Show employees whose salary is between 40,000 and 60,000.
+
+-> select * from employee
+-> where salary between 40000 and 60000;
+
+8️⃣ Get cars whose model name contains ‘Pro’.
+
+-> select * from cars
+-> where model like '%Pro%';
+
+9️⃣ Find users who registered before ‘2023-01-01’.
+
+-> select * from users
+-> where reg_date < '2023-01-01';
+
+🔟 Show products where category is ‘Electronics’ OR ‘Gadgets’.
+
+-> select * from products
+-> where category = 'Electronics'
+-> or category ='Gadgets';
+
+.....................................................................................................................................................................................................................................................
+
+✅ Medium Level
+
+6️⃣ Select employees whose salary is between 30,000 and 50,000.
+
+-> select * from employees
+-> where salary between 30000 and 50000;
+
+7️⃣ Find students whose name starts with 'A'.
+
+-> select * from students
+-> where name like 'A%';
+
+8️⃣ Get all orders not delivered.
+
+-> select * from orders
+-> where status <> 'deliverd';
+
+9️⃣ Show products whose category is NOT 'Electronics'.
+
+-> select * from products
+-> where category <> 'Electronices';
+
+🔟 Get patients whose age is 18 or above.
+
+-> select * from patients 
+-> where age >= 18;
+
+..............................................................................................................................................................................................
+
+✅ String Matching Using WHERE
+
+11️⃣ Find users whose email ends with @gmail.com.
+
+-> select * from users
+-> where email like '%@gmail.com';
+
+12️⃣ Select employees whose name contains 'sh'.
+
+-> select * from employee 
+-> where name like '%sh%';
+
+13️⃣ Show cities that start with 'P'.
+
+-> select * from cities
+-> where city_name like 'P%';
+
+14️⃣ Get students whose name length is more than 5 characters
+
+-> select * from student
+-> where length(name) > 5;
+
+..............................................................................................................................................................................................................................
+
+✅ Logical Operators (AND / OR / NOT)
+
+15️⃣ Show employees working in IT department AND salary > 50000.
+
+-> select * from employees
+-> where department = 'IT' 
+-> and salary > 50000;
+ 
+16️⃣ Find customers from Pune OR Nashik.
+
+-> select * from customer
+-> where city = 'pune' 
+-> or city = 'Nashik';
+
+or select * from customer
+  -> where city in('pune','nashik');
+
+17️⃣ Get orders where status = 'Pending' AND amount < 1000.
+
+-> select * from orders
+-> where status = 'pending' and amount < 1000;
+
+18️⃣ Show employees NOT in HR department.
+
+-> select * from employees 
+-> where department <> 'HR';
+
+................................................................................................................................................................................................................................................
+
+✅ Date Questions
+
+19️⃣ Get orders placed on '2024-01-10'.
+
+-> select * from ordres 
+-> where order_date = '2024-01-10';
+
+20️⃣ Select employees who joined after 2020-05-01.
+
+-> select * from employee
+-> where join_date > '2020-05-01';
+
+21️⃣ Show bookings between 2023-01-01 and 2023-12-31.
+
+-> select * from bookings
+-> where booking_date between '2023-01-01' and '2023-12-31';
+
