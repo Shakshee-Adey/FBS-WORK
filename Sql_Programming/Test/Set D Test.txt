@@ -1,0 +1,158 @@
+SQL Test 2 Set D 
+
+mysql> use mywork;
+Database changed
+mysql> show tables;
++------------------+
+| Tables_in_mywork |
++------------------+
+| customer         |
+| employee         |
+| orders           |
+| salesman         |
++------------------+
+4 rows in set (0.00 sec)
+
+mysql> create table movies(m_id int , mname varchar(50),release_date date,genre varchar(40),IMDB_rating decimal(3,2),t_budget int);
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> insert into movies values(1,"Singham","2011-07-22","Action",8.4,410000000),
+    -> (2,"Andaz apna apna","1994-11-04","Comdedy",8.0,29000000),
+    -> (3,"Im Shanti Om","2007-11-09","Melodrama",7.1,400000000),
+    -> (4,"Tiger Zinda hai","2017-12-22","Thriller",5.9,1200000000),
+    -> (5,"Drishyam","2015-07-31","Mystery",8.2,380000000),
+    -> (6,"3 idiots","2009-12-25","Comedy",8.4,550000000);
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from movies;
++------+-----------------+--------------+-----------+-------------+------------+
+| m_id | mname           | release_date | genre     | IMDB_rating | t_budget   |
++------+-----------------+--------------+-----------+-------------+------------+
+|    1 | Singham         | 2011-07-22   | Action    |        8.40 |  410000000 |
+|    2 | Andaz apna apna | 1994-11-04   | Comdedy   |        8.00 |   29000000 |
+|    3 | Im Shanti Om    | 2007-11-09   | Melodrama |        7.10 |  400000000 |
+|    4 | Tiger Zinda hai | 2017-12-22   | Thriller  |        5.90 | 1200000000 |
+|    5 | Drishyam        | 2015-07-31   | Mystery   |        8.20 |  380000000 |
+|    6 | 3 idiots        | 2009-12-25   | Comedy    |        8.40 |  550000000 |
++------+-----------------+--------------+-----------+-------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> create table actor(act_id int, name varchar(50),gender varchar(40),national varchar(50),no_of_awards int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into actor values(101,"Amir Khan","Male","Indian",10),
+    -> (102,"Karina Kapoor","Female","Indian",5),
+    -> (103,"Ajay Devgan","Male","Indian",12),
+    -> (104,"Salman Khan","Male","Indian",15),
+    -> (105,"R Madhavan","Male","American",12),
+    -> (106,"Deepika","Female","Indian",10);
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from actor;
++--------+---------------+--------+----------+--------------+
+| act_id | name          | gender | national | no_of_awards |
++--------+---------------+--------+----------+--------------+
+|    101 | Amir Khan     | Male   | Indian   |           10 |
+|    102 | Karina Kapoor | Female | Indian   |            5 |
+|    103 | Ajay Devgan   | Male   | Indian   |           12 |
+|    104 | Salman Khan   | Male   | Indian   |           15 |
+|    105 | R Madhavan    | Male   | American |           12 |
+|    106 | Deepika       | Female | Indian   |           10 |
++--------+---------------+--------+----------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> create table Role(id int,m_id int,a_id int ,role varchar(50));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> insert into Role values(1,1,103,"Bajirao Singham"),
+    -> (2,5,103,"Vijay Salgoankar"),
+    -> (3,2,101,"Amar Manohar"),
+    -> (4,6,101,"Rancho"),
+    -> (5,6,102,"Pia"),
+    -> (6,4,104,"Tiger"),
+    -> (7,3,106,"Shanti priya"),
+    -> (8,6,105,"Farhan");
+Query OK, 8 rows affected (0.01 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> select * from Role;
++------+------+------+------------------+
+| id   | m_id | a_id | role             |
++------+------+------+------------------+
+|    1 |    1 |  103 | Bajirao Singham  |
+|    2 |    5 |  103 | Vijay Salgoankar |
+|    3 |    2 |  101 | Amar Manohar     |
+|    4 |    6 |  101 | Rancho           |
+|    5 |    6 |  102 | Pia              |
+|    6 |    4 |  104 | Tiger            |
+|    7 |    3 |  106 | Shanti priya     |
+|    8 |    6 |  105 | Farhan           |
++------+------+------+------------------+
+8 rows in set (0.01 sec)
+
+========================================================================================================================================================================================================================
+
+1. Write a SQL statement to display specific columns  movie and genre for all the movies 
+
+mysql> select mname , genre from movies;
++-----------------+-----------+
+| mname           | genre     |
++-----------------+-----------+
+| Singham         | Action    |
+| Andaz apna apna | Comdedy   |
+| Im Shanti Om    | Melodrama |
+| Tiger Zinda hai | Thriller  |
+| Drishyam        | Mystery   |
+| 3 idiots        | Comedy    |
++-----------------+-----------+
+6 rows in set (0.00 sec)
+
+===================================================================================================================================================================================================================================
+
+2. Write a query which will retrieve the information of all actors who has ‘khan’ in their name 
+
+mysql> select * from actor
+    -> where name like "%Khan%";
++--------+-------------+--------+----------+--------------+
+| act_id | name        | gender | national | no_of_awards |
++--------+-------------+--------+----------+--------------+
+|    101 | Amir Khan   | Male   | Indian   |           10 |
+|    104 | Salman Khan | Male   | Indian   |           15 |
++--------+-------------+--------+----------+--------------+
+2 rows in set (0.00 sec)
+
+=====================================================================================================================================================================================================================================
+
+
+3. Write a SQL statement to display all the information for those movies which were released 
+in 20th century.
+
+mysql> select * from movies
+    -> where release_date between  2000-01-01 and 2999-12-30;
+Empty set, 2 warnings (0.00 sec)
+
+======================================================================================================================================================================================================================================
+ 
+4. Write a SQL statement to find the average rating for movies. 
+
+mysql> select avg(IMDB_rating) from movies;
++------------------+
+| avg(IMDB_rating) |
++------------------+
+|         7.666667 |
++------------------+
+1 row in set (0.00 sec)
+
+=======================================================================================================================================================================================================================================
+
+
+5. Write a SQL query to arrange the actors in ascending order of their award count. 
+
+
+6. Write a SQL statement find the number of movies in which each actor has worked. 
+7. Write a query to find names of the actor along with the movie name they have worked in. 
+8. Write a SQL statement to name of the movie in which a non Indian actor has worked. 
+9. Write a query to display names of all movies in which ‘Salman khan’ has worked. 
+10. Write a query to find names of actors who worked in movie with genre ‘comedy’.
