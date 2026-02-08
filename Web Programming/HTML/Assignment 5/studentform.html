@@ -1,0 +1,81 @@
+<html>
+<head>
+    <title>Student Exam Form</title>
+</head>
+
+<body>
+
+<h2>Student Examination Form</h2>
+
+<form action="submit.html" method="post">
+
+    <!-- Text Input -->
+    Student Name:<br>
+    <input type="text"
+           name="student_name"
+           placeholder="Enter your name"
+           required>
+    <br><br>
+
+    <!-- Roll Number -->
+    Roll Number:<br>
+    <input type="text"
+           name="roll_no"
+           placeholder="Enter roll number">
+    <br><br>
+
+    <!-- Email -->
+    Email ID:<br>
+    <input type="email"
+           name="email"
+           placeholder="Enter email">
+    <br><br>
+
+    <!-- Password -->
+    Password:<br>
+    <input type="password"
+           name="password"
+           placeholder="Enter password">
+    <br><br>
+
+    <!-- Radio Button -->
+    Gender:<br>
+    <input type="radio" name="gender" value="Male"> Male
+    <input type="radio" name="gender" value="Female"> Female
+    <br><br>
+
+    <!-- Checkbox -->
+    Subjects Appearing:<br>
+    <input type="checkbox" name="subject1" value="Maths"> Maths
+    <input type="checkbox" name="subject2" value="Science"> Science
+    <input type="checkbox" name="subject3" value="English"> English
+    <br><br>
+
+    <!-- Date -->
+    Exam Date:<br>
+    <input type="date" name="exam_date">
+    <br><br>
+
+    <!-- Readonly -->
+    Center Code:<br>
+    <input type="text"
+           name="center"
+           value="FB101"
+           readonly>
+    <br><br>
+
+    <!-- Disabled -->
+    University:<br>
+    <input type="text"
+           value="FirstBit University"
+           disabled>
+    <br><br>
+
+    <!-- Submit & Reset -->
+    <input type="submit" value="Submit Form">
+    <input type="reset" value="Reset Form">
+
+</form>
+
+</body>
+</html>
