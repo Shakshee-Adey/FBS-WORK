@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .postcontainer
+        {
+            width: 300px;
+            border: 2px solid red;
+            margin: auto;
+        }
+        .postheader{
+            display: flex;
+            justify-content: space-between;
+        }
+        .subpostheader
+        {
+            display: flex;
+            gap: 10px;
+        }
+        .postmid
+        {
+            width: 100%;
+        }
+        .postmid img
+        {
+            width: 100%;
+        }
+        .dp{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid green;
+            overflow: hidden;
+            
+        }
+        .dp img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .subfooter
+        {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="postcontainer">
+
+        <div class="postheader">
+            <div class="subpostheader">
+           <div class="dp">
+          <img src="/images/images.jfif" alt="">
+          </div>
+          <div>
+            <b>UserName</b>
+            <br>
+            <b>Location</b>
+          </div>
+          </div>
+          <div>...</div>
+        </div>
+
+        <div class="postmid">
+            <img src="/images/IMG_20221030_171455.jpg" alt="">
+        </div>
+
+        <div class="footer">
+           <div class="subfooter">
+           <div>like comment share</div>  
+           <div>save</div>
+           </div>
+           <div class="caption">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus, dolorem ea maxime deleniti rem quia a quos laudantium delectus.</p>
+           </div>
+        </div>
+
+    </div>
+</body>
+</html>
