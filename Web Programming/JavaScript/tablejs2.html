@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function printTable(){
+            num=parseInt(document.getElementById("imp1").value)
+            str="<table>"
+            for(i=1; i<=10; i++)
+            {
+            res=num*i
+            str=str+`<tr><td>${num}</td><td>*</td><td>${i}</td><td>=</td><td>${res}</td><tr>`
+            }
+            str=str+"</table>"
+            console.log(str)
+            document.getElementById("op").innerHTML=str
+        }
+    </script>
+</head>
+<body>
+    Enter Number <input type="text" id="imp1">
+    <br>
+    <button onclick="printTable()">Print Table</button>
+    <br>
+    <span id="op"></span>
+</body>
+</html>
