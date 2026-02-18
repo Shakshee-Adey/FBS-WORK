@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function abc()
+        {
+            str=document.getElementById("inp").value
+            newarr=str.split(",")
+            for(i=0; i<newarr.length; i++)
+            console.log(newarr[i])
+
+        }
+    </script>
+</head>
+<body>
+    <input type="text" id="inp">
+    <button onclick="abc()">abc</button> 
+</body>
+</html>
