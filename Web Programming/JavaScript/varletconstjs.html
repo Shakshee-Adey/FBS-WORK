@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function abc()
+        {
+            {
+              const a=10
+              console.log("inside block "+a)
+              a=20
+              console.log("inside block "+a)
+            }
+          console.log("outside block "+a)
+        }
+        function pqr()
+        {
+            var b=10
+           console.log(b) 
+        }
+        console.log(b)
+        function sfg()
+        {
+            {
+            let c=20
+            console.log("inside block "+c)
+           }
+        console.log("outside block "+c)
+        }
+    </script>
+</head>
+<body>
+   <button onclick="abc()">Abc</button> 
+   <button onclick="pqr()">Pqr</button> 
+   <button onclick="pqr()">sfg</button> 
+</body>
+</html>
