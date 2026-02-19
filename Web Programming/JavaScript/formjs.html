@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Form</title>
+
+    <style>
+        /* Universal Selector */
+        * {
+            font-family: Arial;
+        }
+
+        /* Element Selector */
+        body {
+            background-color: yellowgreen;
+        }
+
+        /* Class Selector */
+        .register-box {
+            width: 350px;
+            margin: 80px auto;
+            padding: 20px;
+            background-color: white;
+            border: 2px solid red;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #999;
+        }
+
+        /* ID Selector */
+        #btn {
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        #btn:hover {
+            background-color: #0d47a1;
+        }
+
+        #msg {
+            margin-top: 10px;
+            color: green;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        function register() {
+
+            name = document.getElementById("name").value;
+            email = document.getElementById("email").value;
+            mobile = document.getElementById("mobile").value;
+            password = document.getElementById("password").value;
+
+            if (name == "" || email == "" || mobile == "" || password == "") {
+                document.getElementById("msg").innerHTML =
+                    "All fields are required";
+            }
+            else {
+                document.getElementById("msg").innerHTML =
+                    "Registration Successful!";
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <div class="register-box">
+
+        <h2>Registration Form</h2>
+
+        <label>Name</label>
+        <input type="text" id="name">
+
+        <label>Email</label>
+        <input type="email" id="email">
+
+        <label>Mobile</label>
+        <input type="text" id="mobile">
+
+        <label>Password</label>
+        <input type="password" id="password">
+
+        <!-- ✅ Submit Button Added -->
+        <input type="button" id="
