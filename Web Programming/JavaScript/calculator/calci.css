@@ -1,0 +1,82 @@
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f2f2f2;
+    font-family: Arial, sans-serif;
+  }
+
+  .calcicontainer {
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    border: 2px solid #333;
+    width: 300px;
+    background: #222;
+    padding: 10px;
+    gap: 8px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  }
+
+  #inpdiv {
+    grid-column: span 3;
+    padding: 2px;
+  }
+
+  #inp {
+    width: 100%;
+    height: 50px;
+    font-size: 22px;
+    text-align: right;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    background: #fff;
+    display: block;
+  }
+
+  .btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #btn {
+    width: 90px;
+    height: 50px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background: #e0e0e0;
+    transition: 0.2s;
+  }
+
+  #btn:hover {
+    background: #cfcfcf;
+  }
+
+  #btn:active {
+    transform: scale(0.95);
+  }
+
+  
+  button[onclick*="+"] ,
+  button[onclick*="-"] ,
+  button[onclick*="*"] ,
+  button[onclick*="/"] {
+    background: #ff9f0a;
+    font-weight: bold;
+  }
+
+ 
+  button[onclick*="evaluate1"] {
+    background: #34c759;
+   
+    font-weight: bold;
+  }
+</style>

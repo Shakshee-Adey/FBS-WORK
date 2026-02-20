@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <style>
+
+      /*.calcicontainer
+      {
+        display: grid;
+        grid-template-columns: 100px 100px 100px;
+        border: 2px solid red;
+        width: 300px;
+      } 
+      .btns
+      {
+        border: 1px solid blue;
+      }
+      #inpdiv
+      {
+        grid-column: span 3;
+        width: 100%;
+      }
+      #inpdiv 
+      {
+        
+      } */
+
+      input{
+        box-sizing: border-box;
+      }
+    </style>
+    <link rel="stylesheet" href="calci.css">
+</head>
+<body>
+   <div class="calcicontainer">
+    <div id="inpdiv">
+        <input type="text" id="inp">
+    </div>
+    <div class="btns">
+        <button id="btn" onclick="submitValue('1')">1</button>
+    </div>
+    <div class="btns">
+        <button id="btn" onclick="submitValue('2')">2</button>
+    </div>
+    <div class="btns">
+        <button id="btn" onclick="submitValue('3')">3</button>
+    </div>
+    <div class="btns">
+        <button id="btn" onclick="submitValue('4')">4</button>
+    </div>
+    <div class="btns">
+        <button id="btn" onclick="submitValue('5')">5</button>
+    </div>
+    <div class="btns">
+        <button id="btn" onclick="submitValue('6')">6</button>
+    </div>
+    <div class="btns">
+        <button id="btn" onclick="submitValue('7')">7</button>
+    </div>
+    <div class="btns">
+        <button id="btn" onclick="submitValue('8')">8</button>
+    </div>
+    <div class="btns">
+        <button id="btn" onclick="submitValue('9')">9</button>
+    </div>
+    <div class="btns">
+        <button id="btn" onclick="submitValue('0')">0</button>
+    </div>
+    <div class="btns">
+        <button id="btn" onclick="submitValue('+')">+</button>
+    </div>
+    <div class="btns">
+        <button id="btn" onclick="submitValue('-')">-</button>
+    </div>
+    <div class="btns">
+        <button id="btn" onclick="submitValue('*')">*</button>
+    </div>
+    <div class="btns">
+        <button id="btn" onclick="submitValue('/')">/</button>
+    </div>
+    <div class="btns">
+        <button id="btn" onclick="evaluate1()">=</button>
+    </div>
+     <div class="btns">
+        <button id="btn" onclick="clearScreen()">c</button>
+    </div>
+    <div class="btns">
+        <button id="btn" onclick="submitValue()">%</button>
+    </div>
+    <div class="btns">
+        <button id="btn" onclick="submitValue()">.</button>
+    </div>
+    
+    
+   </div> 
+   <script src="calci.js"></script>
+</body>
+</html>
