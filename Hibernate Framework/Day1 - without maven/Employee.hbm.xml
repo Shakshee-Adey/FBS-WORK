@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping SYSTEM "hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+
+    <class name="com.Employee" table="employee">
+
+        <id name="eId" column="eid" type="int">
+            <generator class="assigned"/>
+        </id>
+
+        <property name="eName" column="ename"/>
+        <property name="eSal" column="esal"/>
+
+    </class>
+
+</hibernate-mapping>
