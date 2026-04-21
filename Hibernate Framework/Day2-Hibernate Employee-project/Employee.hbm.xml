@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.demoo.Employee" table="Employee_table">
+
+        <id name="eId" column="eid" type="int">
+            <generator class="assigned"/>
+        </id>
+
+        <property name="eName" column="ename"/>
+        <property name="eSal" column="esalary"/>
+        
+        <one-to-one name="project"
+                    class="com.demoo.Project"
+                    cascade="all"/>
+
+    </class>
+
+ <class name="com.demoo.Project" table="Project_table">
+
+        <id name="pId" column="Project_Id" type="int">
+            <generator class="assigned"/>
+        </id>
+
+        <property name="pName" column="Project_Name"/>
+        <property name="frontEnd" column="frontEnd"/>
+        <property name="backEnd" column="backEnd"/>
+        
+        
+        
+         </class>
+</hibernate-mapping>
